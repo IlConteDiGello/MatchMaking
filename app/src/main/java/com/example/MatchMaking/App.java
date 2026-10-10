@@ -3,12 +3,26 @@
  */
 package com.example.MatchMaking;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.SwingUtilities;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        FlatLightLaf.setup();
+        FlatDarkLaf.setup();
+        //FlatIntelliJLaf.setup();
+        FlatDarculaLaf.setup();
+        
+        SwingUtilities.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 }
