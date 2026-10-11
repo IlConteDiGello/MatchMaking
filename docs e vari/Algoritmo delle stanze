@@ -1,0 +1,16 @@
+Algoritmo delle stanze
+
+Un nuovo giocatore viene comparato alle stanze presenti in base a due criteri:
+-Livello del capogruppo +- valore di tolleranza
+-Sbilanciamento della media del gruppo rispetto al capogruppo
+
+Se il nuovo giocatore rientra nell'intorno di tolleranza allora viene calcolato lo sbilanciamento del gruppo fantasma (gruppo + nuovo giocatore). Lo sbilanciamento deve sempre rimanere vicino allo 0 e quindi la media vicina al capogruppo. Lo sbilanciamento è calcolato in percentuale del valore di tolleranza.
+
+Nel caso il nuovo giocatore non abbia trovato nessuna stanza compatibile, diventerà capogruppo di una nuova stanza.
+
+Nel caso in cui dopo un determinato tempo t la stanza non abbia ancora raggiunto la capienza necessaria, il valore di tolleranza deve aumentare e con esso lo sbilanciamento massimo.
+
+Questo funziona per creare squadre omogenee, o, nel caso di giochi tutti contro tutti, partite con livello dei giocatori simili.
+Per quanto riguarda la creazione di squadre che devono combattere contro, ci sono due possibilità:
+ - creare una stanza unica grande (giocatori oer squadra * numero di squadre), e dividerla al raggiungimento del numero di giocatori necessari
+ - usare stanze grandi (giocatori per squadra) e confrontare le squadre già formate in base a una tolleranza (e di uno sbilanciamento se sono più di due squadre), che si dovrà aggionrare secondo le modalità già illustrate. In questo modo e come se si applicasse l'algoritmo delle stanze su due livelli: uno per la creazione delle squadre e uno per l'abbinamento delle squadre.

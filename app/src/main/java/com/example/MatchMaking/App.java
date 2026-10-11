@@ -15,10 +15,10 @@ public class App {
     }
 
     public static void main(String[] args) {
-        FlatLightLaf.setup();
+        //FlatLightLaf.setup();
         FlatDarkLaf.setup();
         //FlatIntelliJLaf.setup();
-        FlatDarculaLaf.setup();
+        //FlatDarculaLaf.setup();
         
         SwingUtilities.invokeLater(() -> {
             MainFrame mainFrame = new MainFrame();
