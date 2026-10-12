@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example.MatchMaking.Client;
+package ClientTester;
 
 import com.example.MatchMaking.*;
 
@@ -53,7 +53,7 @@ public class InterfacciaClient extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(150, 150, 150)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, Short.MAX_VALUE)
                 .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
                 .addGap(200, 200, 200)

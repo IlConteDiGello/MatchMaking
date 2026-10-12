@@ -3,7 +3,6 @@
  */
 package com.example.MatchMaking;
 
-import com.example.MatchMaking.Server.InterfacciaServer;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -22,7 +21,7 @@ public class App {
         //FlatDarculaLaf.setup();
         
         SwingUtilities.invokeLater(() -> {
-            InterfacciaServer mainFrame = new InterfacciaServer();
+            MainFrame mainFrame = new MainFrame();
             mainFrame.setVisible(true);
         });
     }
