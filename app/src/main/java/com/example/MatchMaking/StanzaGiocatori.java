@@ -13,16 +13,22 @@ public class StanzaGiocatori {
     private int tolleranzaLivello;
     private float percentualeSbilanciamentoMassimo;
     private int numeroGiocatori;
+    private int numeroMassimoGiocatori;
+    private int livello;
     
-    StanzaGiocatori(Giocatore capogruppo, int numeroGiocatori) {
-        giocatori = new Giocatore[numeroGiocatori];
+    StanzaGiocatori(Giocatore capogruppo, int numeroMassimoGiocatori) {
+        giocatori = new Giocatore[numeroMassimoGiocatori];
         giocatori[0] = capogruppo;
+        this.numeroMassimoGiocatori = numeroMassimoGiocatori;
+        livello = capogruppo.getLivello();
         numeroGiocatori = 1;
     }
     
-    StanzaGiocatori(Giocatore capogruppo, int numeroGiocatori, int tolleranzaLivello, float percentualeSbilanciamentoMassimo) {
-        giocatori = new Giocatore[numeroGiocatori];
+    StanzaGiocatori(Giocatore capogruppo, int numeroMassimoGiocatori, int tolleranzaLivello, float percentualeSbilanciamentoMassimo) {
+        giocatori = new Giocatore[numeroMassimoGiocatori];
         giocatori[0] = capogruppo;
+        livello = capogruppo.getLivello();
+        this.numeroMassimoGiocatori = numeroMassimoGiocatori;
         this.tolleranzaLivello = tolleranzaLivello;
         this.percentualeSbilanciamentoMassimo = percentualeSbilanciamentoMassimo;
         numeroGiocatori = 1;
@@ -44,6 +50,15 @@ public class StanzaGiocatori {
         }
         
         return false;
+    }
+    
+    public void accetta(Giocatore nuovoGiocatore) throws GiocatoreNonPuoEntrare {
+        if (puoEntrare(nuovoGiocatore)) {
+            giocatori[numeroGiocatori] = nuovoGiocatore;
+            numeroGiocatori++;
+        }
+        
+        throw new GiocatoreNonPuoEntrare();
     }
     
 }
