@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example.MatchMaking;
+package com.example.MatchMaking.Server;
 
 /**
  *
  * @author nano_machine
  */
-public class MainFrame extends javax.swing.JFrame {
+public class InterfacciaServer extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfacciaServer.class.getName());
 
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public InterfacciaServer() {
         initComponents();
     }
 
@@ -38,17 +38,17 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(377, 377, 377)
                 .addComponent(jButton1)
-                .addGap(155, 155, 155))
+                .addContainerGap(481, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
+                .addGap(247, 247, 247)
                 .addComponent(jButton1)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
 
         pack();
@@ -77,7 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
         }//</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new InterfacciaServer().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
