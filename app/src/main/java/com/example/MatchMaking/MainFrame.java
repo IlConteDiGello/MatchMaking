@@ -4,6 +4,11 @@
  */
 package com.example.MatchMaking;
 
+import java.net.Socket;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.io.*;
+
 /**
  *
  * @author nano_machine
@@ -17,6 +22,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        Thread server = new Thread(new Server(this));
+        server.start();
+        this.setVisible(true);
     }
 
     /**
@@ -28,31 +36,48 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        AreaClient = new javax.swing.JTextArea();
+        bUccidiServer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        AreaClient.setEditable(false);
+        AreaClient.setColumns(20);
+        AreaClient.setRows(5);
+        jScrollPane1.setViewportView(AreaClient);
+
+        bUccidiServer.setText("Uccidi server");
+        bUccidiServer.addActionListener(this::bUccidiServerActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(377, 377, 377)
-                .addComponent(jButton1)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bUccidiServer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(247, 247, 247)
-                .addComponent(jButton1)
-                .addContainerGap(375, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bUccidiServer, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bUccidiServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUccidiServerActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_bUccidiServerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,6 +106,19 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextArea AreaClient;
+    private javax.swing.JButton bUccidiServer;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    
+    
+    public void aggiungiLog(String messaggio){
+        javax.swing.SwingUtilities.invokeLater(() -> {
+        AreaClient.append(messaggio + "\n");
+        AreaClient.append("Miao miao");
+        AreaClient.setCaretPosition(AreaClient.getDocument().getLength());
+    });
+        }
+
 }
+

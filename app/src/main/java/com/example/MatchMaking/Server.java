@@ -17,21 +17,47 @@ import java.net.*;
  *
  * @author lucagiusti
  */
-public class Server {
+public class Server implements Runnable {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
-        ServerSocket socketAccettazione;
-        
-        PrintWriter out;
-        BufferedReader in;
-        
+    MainFrame interfaccia;
+    
+    Server(MainFrame interfaccia) {
+        this.interfaccia = interfaccia;
+    }
+    
+    @Override
+    public void run() { 
         try
         {
-            socketAccettazione = new ServerSocket(50000);
+            System.out.println("Ciao");
+            ServerSocket serversocket = new ServerSocket(50000);
+            serversocket.accept();
+            
+            System.out.println("Eccomi!");
+        
+            PrintWriter out;
+            BufferedReader in;
+            
+            Thread Main = Thread.currentThread();   //thread corrente
+            MatchMaker matchmaker = new MatchMaker();   //creazione thread matchMaking
+        
+            //start thread del matchMaking
+            matchmaker.start();
+            
+            System.out.println("Server avviato, aspettando client...");
+            
+            while(true){
+                Socket socket = serversocket.accept();  //accettazione socket in ciclo infinito
+                System.out.println("Connesse nuovo client! wow!");
+                
+                ClientHandler handler = new ClientHandler(socket, matchmaker, interfaccia); //creazione nuovo handler
+                
+                
+            }
+            /*socketAccettazione = new ServerSocket(50000);
             System.out.println("In attesa del client....");
             Socket s = socketAccettazione.accept(); // BLOCCANTE!!!
             
@@ -40,13 +66,13 @@ public class Server {
             // Aggancio l'outputStream al mio PrintWriter
             out = new PrintWriter(s.getOutputStream(),true);
             out.println("Benvenuto client!");
-            // Aggancio l'inputStream al mio BufferedReader
+            // Aggancio l'inputStream al mio BufferedReader*/
             
         }
         catch(Exception e)
         {
-            System.out.println("Errore: "+e.getMessage());
-        } 
+            e.printStackTrace();
+        }
     }
     
 }
