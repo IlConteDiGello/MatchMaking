@@ -4,6 +4,9 @@
  */
 package com.example.MatchMaking;
 
+import java.util.Comparator;
+import java.util.TreeSet;
+
 /**
  *
  * @author nano_machine
@@ -59,6 +62,17 @@ public class StanzaGiocatori {
         }
         
         throw new GiocatoreNonPuoEntrare();
+    }
+    
+    //test. questo metodo sarà spostato altrove
+    public void main() {
+        TreeSet<Giocatore> treeSet = new TreeSet (new Comparator<Giocatore>() {
+            @Override
+            public int compare(Giocatore t, Giocatore t1) {
+                return t.getLivello() - t1.getLivello();
+            }
+        });
+        
     }
     
 }
