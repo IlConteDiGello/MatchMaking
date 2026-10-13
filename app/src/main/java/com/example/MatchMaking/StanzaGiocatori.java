@@ -56,9 +56,9 @@ public class StanzaGiocatori {
         if (puoEntrare(nuovoGiocatore)) {
             giocatori[numeroGiocatori] = nuovoGiocatore;
             numeroGiocatori++;
+        }else {
+            throw new GiocatoreNonPuoEntrare();
         }
-        
-        throw new GiocatoreNonPuoEntrare();
     }
     
 }

@@ -2,22 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ClientTester;
+package com.example.MatchMaking;
 
+import java.net.Socket;
 import com.example.MatchMaking.*;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.io.*;
 
 /**
  *
  * @author nano_machine
  */
-public class InterfacciaClient extends javax.swing.JFrame {
+public class InterfacciaServer extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfacciaClient.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfacciaServer.class.getName());
 
     /**
      * Creates new form MainFrame
      */
-    public InterfacciaClient() {
+    public InterfacciaServer() {
         initComponents();
     }
 
@@ -30,58 +34,48 @@ public class InterfacciaClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        FieldIDServer = new javax.swing.JTextField();
-        BottoneConferma = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        AreaClient = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 34)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Inserisci l'ID del server");
+        AreaClient.setEditable(false);
+        AreaClient.setColumns(20);
+        AreaClient.setRows(5);
+        jScrollPane1.setViewportView(AreaClient);
 
-        FieldIDServer.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        FieldIDServer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        FieldIDServer.addActionListener(this::FieldIDServerActionPerformed);
-
-        BottoneConferma.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
-        BottoneConferma.setText("Conferma");
+        jButton1.setText("Uccidi server");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, Short.MAX_VALUE)
-                .addGap(150, 150, 150))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(FieldIDServer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BottoneConferma)
-                .addGap(269, 269, 269))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
-                .addComponent(FieldIDServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BottoneConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FieldIDServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldIDServerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FieldIDServerActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,12 +100,22 @@ public class InterfacciaClient extends javax.swing.JFrame {
         }//</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new InterfacciaClient().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new InterfacciaServer().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BottoneConferma;
-    private javax.swing.JTextField FieldIDServer;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextArea AreaClient;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    
+    
+    public void aggiungiLog(String messaggio){
+        javax.swing.SwingUtilities.invokeLater(() -> {
+        AreaClient.append(messaggio + "\n");
+        AreaClient.setCaretPosition(AreaClient.getDocument().getLength());
+    });
+        }
+
 }
+
