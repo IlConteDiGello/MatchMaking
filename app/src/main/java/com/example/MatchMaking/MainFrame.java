@@ -13,16 +13,18 @@ import java.io.*;
  *
  * @author nano_machine
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements Logger {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
+    
+    private Thread server;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        Thread server = new Thread(new SocketListener(this));
+        server = new Thread(new SocketListener(this));
         server.start();
         this.setVisible(true);
     }
@@ -110,15 +112,16 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton bUccidiServer;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    
-    
-    public void aggiungiLog(String messaggio){
+
+
+    @Override
+    public void log(String messaggio) {
         javax.swing.SwingUtilities.invokeLater(() -> {
         AreaClient.append(messaggio + "\n");
-        AreaClient.append("Miao miao");
+        //AreaClient.append("Miao miao");
         AreaClient.setCaretPosition(AreaClient.getDocument().getLength());
     });
-        }
+    }
 
 }
 

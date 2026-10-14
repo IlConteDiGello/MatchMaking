@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NavigableSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import javax.swing.SwingUtilities;
 
 /**
  *questo thread prende i dati dal clientHandler e li smista nelle stanze
@@ -59,7 +60,8 @@ public class MatchMaker implements Runnable{
                 Thread.sleep(1000);
             }
         }catch(Exception e){
-            System.out.println("Thread interrotto");   
+            System.out.println("Thread interrotto"); 
+            SwingUtilities.invokeLater(this);
         }
     }
 }

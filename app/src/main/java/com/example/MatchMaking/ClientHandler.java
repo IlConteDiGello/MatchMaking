@@ -6,6 +6,8 @@ package com.example.MatchMaking;
 
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -14,37 +16,53 @@ import java.net.Socket;
 public class ClientHandler extends Thread {
     private Socket socket;
     private MatchMaker matchmaker;
-    private MainFrame interfacciaDelServer;
+    private Logger logger;
+    private ConcurrentLinkedQueue<Socket> coda;
+    
 
-    public ClientHandler(Socket socket, MatchMaker matchmaker, MainFrame interfacciaDelServer) {
-        this.socket = socket;
-        this.matchmaker = matchmaker;
-        this.interfacciaDelServer = interfacciaDelServer;
+    public ClientHandler(Logger logger) {
+        this.logger = logger;
     }
 
     @Override
     public void run() {
-        try {
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            Giocatore giocatoreRicevuto = (Giocatore) in.readObject();
+        while(true) {
+            Socket connessione = coda.poll();
+            if(coda != null) {
+                try {
+                    ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                    Giocatore giocatoreRicevuto = (Giocatore) in.readObject();
 
-            System.out.println("Ricevuto giocatore: " + giocatoreRicevuto.getNickname() 
-            + " (Livello: " + giocatoreRicevuto.getLivello() + ")");
+                    //System.out.println("Ricevuto giocatore: " + giocatoreRicevuto.getNickname() + " (Livello: " + giocatoreRicevuto.getLivello() + ")");
+
+                    String IPClient = socket.getInetAddress().getHostAddress();
+                    String nicknameClient = giocatoreRicevuto.getNickname();
+                    int livello = giocatoreRicevuto.getLivello();
+
+                    String messaggioLog = "Client " + IPClient + "nick: " + nicknameClient + "LV: " + livello;
+
+                    if(logger != null){
+                        logger.log(messaggioLog);
+                    }
+
+                    matchmaker.aggiungiGiocatoreInFila(giocatoreRicevuto);
+
+                } catch (Exception e) {
+                    System.err.println("errore del clienthandler: " + e.getMessage());
+                }
             
-            String IPClient = socket.getInetAddress().getHostAddress();
-            String nicknameClient = giocatoreRicevuto.getNickname();
-            int livello = giocatoreRicevuto.getLivello();
-            
-            String messaggioPerInterfaccia = "Client " + IPClient + "nick: " + nicknameClient + "LV: " + livello;
-            
-            if(interfacciaDelServer != null){
-                interfacciaDelServer.aggiungiLog(messaggioPerInterfaccia);
             }
-
-            matchmaker.aggiungiGiocatoreInFila(giocatoreRicevuto);
-
-        } catch (Exception e) {
-            System.err.println("errore del clienthandler: " + e.getMessage());
+            else {
+                try{
+                    Thread.sleep(10);
+                }catch(InterruptedException e){
+                    System.out.println(e);
+                }
+            }
         }
+    }
+    
+    public void gestisci(Socket connessioneInEntrata) {
+        coda.add(connessioneInEntrata);
     }
 }

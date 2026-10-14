@@ -22,10 +22,10 @@ public class SocketListener implements Runnable {
     /**
      * @param args the command line arguments
      */
-    MainFrame interfaccia;
+    Logger logger;
     
-    SocketListener(MainFrame interfaccia) {
-        this.interfaccia = interfaccia;
+    SocketListener(Logger logger) {
+        this.logger = logger;
     }
     
     @Override
@@ -34,24 +34,27 @@ public class SocketListener implements Runnable {
         {
             System.out.println("Ciao");
             ServerSocket serversocket = new ServerSocket(50000);
-            serversocket.accept();
-            
-            System.out.println("Eccomi!");
         
             PrintWriter out;
             BufferedReader in;
             
-            Thread Main = Thread.currentThread();   //thread corrente
-            MatchMaker matchmaker = new MatchMaker();   //creazione thread matchMaking
-        
-            //start thread del matchMaking
-            matchmaker.start();
+            //Thread Main = Thread.currentThread();   //thread corrente
+            Thread matchMaker = new Thread(new MatchMaker());
+            matchMaker.start();
             
-            System.out.println("Server avviato, aspettando client...");
+            ClientHandler clientHandler = new ClientHandler(logger);
+            Thread clientHandlerThread = new Thread(clientHandler);
+            clientHandler.start();
             
-            Socket socket = serversocket.accept();  //accettazione socket in ciclo infinito
-            System.out.println("Connesse nuovo client! wow!");
-            ClientHandler handler = new ClientHandler(socket, matchmaker, interfaccia); //creazione nuovo handler
+            Socket connessioneInEntrata;
+            while(true) {
+                connessioneInEntrata = serversocket.accept();
+                clientHandler.gestisci(connessioneInEntrata);
+                
+            }
+            
+            
+            //ClientHandler handler = new ClientHandler(socket, matchmaker, interfaccia); //creazione nuovo handler
                
             /*socketAccettazione = new ServerSocket(50000);
             System.out.println("In attesa del client....");
