@@ -41,6 +41,8 @@ public class InterfacciaClient extends javax.swing.JFrame {
         FieldIDServer = new javax.swing.JTextField();
         labelLivello = new javax.swing.JLabel();
         FieldLivello = new javax.swing.JTextField();
+        LabelPorta = new javax.swing.JLabel();
+        FieldPorta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,37 +74,48 @@ public class InterfacciaClient extends javax.swing.JFrame {
         FieldLivello.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         FieldLivello.addActionListener(this::FieldLivelloActionPerformed);
 
+        LabelPorta.setFont(new java.awt.Font("Fira Sans", 1, 34)); // NOI18N
+        LabelPorta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelPorta.setText("Porta");
+
+        FieldPorta.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        FieldPorta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        FieldPorta.addActionListener(this::FieldPortaActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(275, 275, 275)
-                .addComponent(BottoneConferma)
-                .addContainerGap(270, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(150, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelLivello, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(FieldLivello, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(72, 72, 72)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(labelNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(100, 100, 100))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(FieldNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(172, 172, 172)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelLivello, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LabelPorta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(FieldLivello, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FieldPorta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(72, 72, 72)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(labelNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(FieldNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(172, 172, 172))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BottoneConferma)
+                        .addGap(262, 262, 262))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(120, Short.MAX_VALUE)
+                    .addContainerGap(149, Short.MAX_VALUE)
                     .addComponent(labelID, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(101, 101, 101)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(185, Short.MAX_VALUE)
+                    .addContainerGap(214, Short.MAX_VALUE)
                     .addComponent(FieldIDServer, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(170, 170, 170)))
         );
@@ -117,19 +130,22 @@ public class InterfacciaClient extends javax.swing.JFrame {
                 .addComponent(labelLivello, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FieldLivello, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(BottoneConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LabelPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(BottoneConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(22, 22, 22)
                     .addComponent(labelID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(351, Short.MAX_VALUE)))
+                    .addContainerGap(410, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(100, 100, 100)
                     .addComponent(FieldIDServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(307, Short.MAX_VALUE)))
+                    .addContainerGap(366, Short.MAX_VALUE)))
         );
 
         pack();
@@ -145,6 +161,7 @@ public class InterfacciaClient extends javax.swing.JFrame {
         String IP = FieldIDServer.getText().trim();
         String livello = FieldLivello.getText().trim();
         String nickname = FieldNickname.getText().trim();
+        String porta = FieldPorta.getText().trim();
         
         //CONTROLLI
         //controllo se il livello è formato giusto
@@ -171,12 +188,14 @@ public class InterfacciaClient extends javax.swing.JFrame {
     }
         
         int livelloNumero = Integer.parseInt(livello);
+        int portaNumero = Integer.parseInt(porta);
         Giocatore giocatore = new Giocatore(livelloNumero, nickname);
         
         System.out.println("Provo a connettermi a " + IP);
         
         try{
-            Socket socket = new Socket(/*IP*/ "127.0.0.1", 50000);
+            //Socket socket = new Socket(127.0.0.1, 50000);
+            Socket socket = new Socket(/*IP*/ IP, portaNumero);
             
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             
@@ -201,6 +220,10 @@ public class InterfacciaClient extends javax.swing.JFrame {
     private void FieldLivelloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldLivelloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FieldLivelloActionPerformed
+
+    private void FieldPortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldPortaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldPortaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +256,8 @@ public class InterfacciaClient extends javax.swing.JFrame {
     private javax.swing.JTextField FieldIDServer;
     private javax.swing.JTextField FieldLivello;
     private javax.swing.JTextField FieldNickname;
+    private javax.swing.JTextField FieldPorta;
+    private javax.swing.JLabel LabelPorta;
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelLivello;
     private javax.swing.JLabel labelNickname;
