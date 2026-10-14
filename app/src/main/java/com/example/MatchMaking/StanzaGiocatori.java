@@ -6,6 +6,7 @@ package com.example.MatchMaking;
 
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 
 /**
  *
@@ -18,10 +19,17 @@ public class StanzaGiocatori {
     private int numeroGiocatori;
     private int numeroMassimoGiocatori;
     private int livello;
+    private Consumer stanzaPiena;
 
     public int getLivello() {
         return livello;
     }
+
+    public Giocatore[] getGiocatori() {
+        return giocatori;
+    }
+    
+    
     
     StanzaGiocatori(Giocatore capogruppo, int numeroMassimoGiocatori) {
         giocatori = new Giocatore[numeroMassimoGiocatori];
@@ -31,7 +39,7 @@ public class StanzaGiocatori {
         numeroGiocatori = 1;
     }
     
-    StanzaGiocatori(Giocatore capogruppo, int numeroMassimoGiocatori, int tolleranzaLivello, float percentualeSbilanciamentoMassimo) {
+    StanzaGiocatori(Giocatore capogruppo, int numeroMassimoGiocatori, int tolleranzaLivello, float percentualeSbilanciamentoMassimo, Consumer stanzaPiena) {
         giocatori = new Giocatore[numeroMassimoGiocatori];
         giocatori[0] = capogruppo;
         livello = capogruppo.getLivello();
@@ -39,6 +47,7 @@ public class StanzaGiocatori {
         this.tolleranzaLivello = tolleranzaLivello;
         this.percentualeSbilanciamentoMassimo = percentualeSbilanciamentoMassimo;
         numeroGiocatori = 1;
+        this.stanzaPiena = stanzaPiena;
     }
     
     private boolean puoEntrare(Giocatore nuovoGiocatore) {
@@ -63,22 +72,22 @@ public class StanzaGiocatori {
         if (puoEntrare(nuovoGiocatore)) {
             giocatori[numeroGiocatori] = nuovoGiocatore;
             numeroGiocatori++;
+            if (numeroGiocatori >= GlobalData.NUMERO_GIOCATORI_STANZA) {
+                System.out.println("Stanza piena livello " + giocatori[0].getLivello());
+                stanzaPiena.accept(this);
+            }
             return true;
         } 
         else {
             return false;
         }
     }
-    
-    //test. questo metodo sarà spostato altrove
-    public void main() {
-        TreeSet<Giocatore> treeSet = new TreeSet (new Comparator<Giocatore>() {
-            @Override
-            public int compare(Giocatore t, Giocatore t1) {
-                return t.getLivello() - t1.getLivello();
-            }
-        });
-        
+
+    void iniziaPartita() {
+        System.out.println("Avverto i giocatori");
+        for(Giocatore g : giocatori) {
+            g.avvertiClient(this);
+        }
     }
     
 }

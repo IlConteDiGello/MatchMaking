@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NavigableSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 import javax.swing.SwingUtilities;
 
 /**
@@ -21,6 +22,11 @@ import javax.swing.SwingUtilities;
 public class MatchMaker implements Runnable{
     //private ArrayList<StanzaGiocatori> listaStanzeAttive;
     private NavigableSet<StanzaGiocatori> stanzeAttive;
+    private Consumer<StanzaGiocatori> stanzaPiena = (stanza) -> {
+        stanzeAttive.remove(stanza);
+        stanza.iniziaPartita();
+        System.out.println("Stanza piena trovata");
+    };
     
     public MatchMaker(){
         this.stanzeAttive = Collections.synchronizedNavigableSet(new TreeSet<StanzaGiocatori>(new Comparator<StanzaGiocatori>() {
@@ -35,16 +41,16 @@ public class MatchMaker implements Runnable{
     //questo è il metodo chiamato da ClientHandler
     //è synchronized perchè potrebbe essere chiamato da più thread allo stesso momento
     public synchronized void aggiungiGiocatoreInFila(Giocatore giocatore){
-        StanzaGiocatori stanzaTemp = new StanzaGiocatori(giocatore, GlobalData.NUMERO_GIOCATORI_STANZA);
+        StanzaGiocatori stanzaTemp = new StanzaGiocatori(giocatore, GlobalData.NUMERO_GIOCATORI_STANZA, GlobalData.TOLLERANZA_LIVELLO_STANZA, GlobalData.PERCENTUALE_SBILANCIAMENTO_MASSIMO, stanzaPiena);
         
         StanzaGiocatori stanzaVicina;
         
         stanzaVicina = stanzeAttive.ceiling(stanzaTemp);
-        if (stanzaVicina.accetta(giocatore))
+        if (stanzaVicina != null && stanzaVicina.accetta(giocatore))
             return;
         
         stanzaVicina = stanzeAttive.lower(stanzaTemp);
-        if (stanzaVicina.accetta(giocatore))
+        if (stanzaVicina != null && stanzaVicina.accetta(giocatore))
             return;
         
         stanzeAttive.add(stanzaTemp);

@@ -69,7 +69,7 @@ public class InterfacciaTest extends javax.swing.JFrame {
                 .addComponent(FieldQuantita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(BottoneConferma, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,7 +92,7 @@ public class InterfacciaTest extends javax.swing.JFrame {
         }
         String nicknameCasuale = "Bot_" + sb.toString();
 
-        Giocatore giocatore = new Giocatore(livelloCasuale, nicknameCasuale);
+        Giocatore giocatore = new Giocatore(livelloCasuale, nicknameCasuale, null);
 
         try {
             Socket socket = new Socket("127.0.0.1", 50000);
@@ -145,6 +145,15 @@ public class InterfacciaTest extends javax.swing.JFrame {
     private javax.swing.JButton BottoneConferma;
     private javax.swing.JTextField FieldQuantita;
     // End of variables declaration//GEN-END:variables
+
+    /*@Override
+    public void log(String messaggio) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+        taLogger.append(messaggio + "\n");
+        //AreaClient.append("Miao miao");
+        taLogger.setCaretPosition(taLogger.getDocument().getLength());
+    });
+    }*/
     
 
 }

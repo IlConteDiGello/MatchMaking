@@ -9,5 +9,7 @@ package com.example.MatchMaking;
  * @author nano_machine
  */
 public class GlobalData {
-    public static final int NUMERO_GIOCATORI_STANZA = 6;
+    public static final int NUMERO_GIOCATORI_STANZA = 3;
+    public static final int TOLLERANZA_LIVELLO_STANZA = 5; 
+    public static final float PERCENTUALE_SBILANCIAMENTO_MASSIMO = (float) 0.3;
 }

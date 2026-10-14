@@ -14,7 +14,6 @@ import javax.swing.SwingUtilities;
  * @author ilcontedigello
  */
 public class ClientHandler extends Thread {
-    private Socket socket;
     private MatchMaker matchmaker;
     private Logger logger;
     private ConcurrentLinkedQueue<Socket> coda;
@@ -22,24 +21,26 @@ public class ClientHandler extends Thread {
 
     public ClientHandler(Logger logger) {
         this.logger = logger;
+        this.coda = new ConcurrentLinkedQueue();
+        this.matchmaker = new MatchMaker();
     }
 
     @Override
     public void run() {
         while(true) {
             Socket connessione = coda.poll();
-            if(coda != null) {
+            if(connessione != null) {
                 try {
-                    ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                    ObjectInputStream in = new ObjectInputStream(connessione.getInputStream());
                     Giocatore giocatoreRicevuto = (Giocatore) in.readObject();
-
+                    giocatoreRicevuto.setConnessione(connessione);
                     //System.out.println("Ricevuto giocatore: " + giocatoreRicevuto.getNickname() + " (Livello: " + giocatoreRicevuto.getLivello() + ")");
 
-                    String IPClient = socket.getInetAddress().getHostAddress();
+                    String IPClient = connessione.getInetAddress().getHostAddress();
                     String nicknameClient = giocatoreRicevuto.getNickname();
                     int livello = giocatoreRicevuto.getLivello();
 
-                    String messaggioLog = "Client " + IPClient + "nick: " + nicknameClient + "LV: " + livello;
+                    String messaggioLog = giocatoreRicevuto.toString();
 
                     if(logger != null){
                         logger.log(messaggioLog);
