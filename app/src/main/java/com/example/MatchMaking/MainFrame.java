@@ -22,7 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        Thread server = new Thread(new Server(this));
+        Thread server = new Thread(new SocketListener(this));
         server.start();
         this.setVisible(true);
     }

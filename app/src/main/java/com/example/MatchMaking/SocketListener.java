@@ -17,14 +17,14 @@ import java.net.*;
  *
  * @author lucagiusti
  */
-public class Server implements Runnable {
+public class SocketListener implements Runnable {
 
     /**
      * @param args the command line arguments
      */
     MainFrame interfaccia;
     
-    Server(MainFrame interfaccia) {
+    SocketListener(MainFrame interfaccia) {
         this.interfaccia = interfaccia;
     }
     
@@ -49,14 +49,10 @@ public class Server implements Runnable {
             
             System.out.println("Server avviato, aspettando client...");
             
-            while(true){
-                Socket socket = serversocket.accept();  //accettazione socket in ciclo infinito
-                System.out.println("Connesse nuovo client! wow!");
-                
-                ClientHandler handler = new ClientHandler(socket, matchmaker, interfaccia); //creazione nuovo handler
-                
-                
-            }
+            Socket socket = serversocket.accept();  //accettazione socket in ciclo infinito
+            System.out.println("Connesse nuovo client! wow!");
+            ClientHandler handler = new ClientHandler(socket, matchmaker, interfaccia); //creazione nuovo handler
+               
             /*socketAccettazione = new ServerSocket(50000);
             System.out.println("In attesa del client....");
             Socket s = socketAccettazione.accept(); // BLOCCANTE!!!

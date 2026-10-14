@@ -18,6 +18,10 @@ public class StanzaGiocatori {
     private int numeroGiocatori;
     private int numeroMassimoGiocatori;
     private int livello;
+
+    public int getLivello() {
+        return livello;
+    }
     
     StanzaGiocatori(Giocatore capogruppo, int numeroMassimoGiocatori) {
         giocatori = new Giocatore[numeroMassimoGiocatori];
@@ -37,7 +41,7 @@ public class StanzaGiocatori {
         numeroGiocatori = 1;
     }
     
-    boolean puoEntrare(Giocatore nuovoGiocatore) {
+    private boolean puoEntrare(Giocatore nuovoGiocatore) {
         if(nuovoGiocatore.getLivello() >= giocatori[0].getLivello() - tolleranzaLivello && nuovoGiocatore.getLivello() <= giocatori[0].getLivello() + tolleranzaLivello) {
             float media = 0;
             for(int i = 0; i < numeroGiocatori; i++) 
@@ -55,12 +59,14 @@ public class StanzaGiocatori {
         return false;
     }
     
-    public void accetta(Giocatore nuovoGiocatore) throws GiocatoreNonPuoEntrare {
+    public boolean accetta(Giocatore nuovoGiocatore) {
         if (puoEntrare(nuovoGiocatore)) {
             giocatori[numeroGiocatori] = nuovoGiocatore;
             numeroGiocatori++;
-        }else {
-            throw new GiocatoreNonPuoEntrare();
+            return true;
+        } 
+        else {
+            return false;
         }
     }
     

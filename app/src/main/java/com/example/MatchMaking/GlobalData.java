@@ -8,6 +8,6 @@ package com.example.MatchMaking;
  *
  * @author nano_machine
  */
-public class GiocatoreNonPuoEntrare extends Exception {
-    
+public class GlobalData {
+    public static final int NUMERO_GIOCATORI_STANZA = 6;
 }

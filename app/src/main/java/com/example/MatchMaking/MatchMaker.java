@@ -5,49 +5,54 @@
 package com.example.MatchMaking;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NavigableSet;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *questo thread prende i dati dal clientHandler e li smista nelle stanze
  * 
  * @author ilcontedigello
  */
-public class MatchMaker extends Thread{
-    private ArrayList<StanzaGiocatori> listaStanzeAttive;
+public class MatchMaker implements Runnable{
+    //private ArrayList<StanzaGiocatori> listaStanzeAttive;
+    private NavigableSet<StanzaGiocatori> stanzeAttive;
     
     public MatchMaker(){
-        this.listaStanzeAttive = new ArrayList();
+        this.stanzeAttive = Collections.synchronizedNavigableSet(new TreeSet<StanzaGiocatori>(new Comparator<StanzaGiocatori>() {
+            @Override
+            public int compare(StanzaGiocatori t, StanzaGiocatori t1) {
+                return t.getLivello() - t1.getLivello();
+            }
+        }));
     }
+    
     
     //questo è il metodo chiamato da ClientHandler
     //è synchronized perchè potrebbe essere chiamato da più thread allo stesso momento
     public synchronized void aggiungiGiocatoreInFila(Giocatore giocatore){
-        boolean inserito = false;
+        StanzaGiocatori stanzaTemp = new StanzaGiocatori(giocatore, GlobalData.NUMERO_GIOCATORI_STANZA);
         
-        //ricerca in tutte le stanze
-        for(StanzaGiocatori stanza : listaStanzeAttive){
-            if(stanza.puoEntrare(giocatore)){//usa il metodo dentro la stanza per vedere se può entrare
-                try{
-                    stanza.accetta(giocatore);  //se può entrare lo accetta
-                    inserito = true;
-                    System.out.println("Giocatore aggiunto! divertiti!");
-                    break;
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
+        StanzaGiocatori stanzaVicina;
         
-        if(!inserito){
-            StanzaGiocatori StanzaNuova = new StanzaGiocatori(giocatore, 2);
-            listaStanzeAttive.add(StanzaNuova);
-            System.out.println("Creata una nuova stanza siccome non ce ne erano di compatibili per " + giocatore.getNickname());
+        stanzaVicina = stanzeAttive.ceiling(stanzaTemp);
+        if (stanzaVicina.accetta(giocatore))
+            return;
         
-        }
+        stanzaVicina = stanzeAttive.lower(stanzaTemp);
+        if (stanzaVicina.accetta(giocatore))
+            return;
+        
+        stanzeAttive.add(stanzaTemp);
+        System.out.println("Creata una nuova stanza siccome non ce ne erano di compatibili per " + giocatore.getNickname());
+        
+        
     }
     
-    @Override
-    
+    @Override 
     public void run(){
         try{
             while(true){
