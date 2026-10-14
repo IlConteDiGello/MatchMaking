@@ -140,16 +140,39 @@ public class InterfacciaClient extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldNicknameActionPerformed
 
     private void BottoneConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BottoneConfermaActionPerformed
+        
+        
         String IP = FieldIDServer.getText().trim();
-        int livello = Integer.parseInt(FieldLivello.getText().trim());
+        String livello = FieldLivello.getText().trim();
         String nickname = FieldNickname.getText().trim();
         
-        Giocatore giocatore = new Giocatore(livello, nickname);
-        
-        if(IP.isEmpty()){
-        System.out.println("Inserire un IP valido");
+        //CONTROLLI
+        //controllo se il livello è formato giusto
+        try {
+        int livelloNumero = Integer.parseInt(livello);
+        } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Inserisci un livello valido!", 
+            "Errore livello", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
         return;
     }
+        //controllo se ci sono tutti i campi
+        if (IP.isEmpty() || nickname.isEmpty() || livello.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Inserire Nickname, livello e IP correttamente per connettersi", 
+            "Campi mancanti", 
+            javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+        return; 
+    }
+        
+        int livelloNumero = Integer.parseInt(livello);
+        Giocatore giocatore = new Giocatore(livelloNumero, nickname);
+        
         System.out.println("Provo a connettermi a " + IP);
         
         try{
